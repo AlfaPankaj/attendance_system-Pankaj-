@@ -1,3 +1,7 @@
+
+"""Here is the link to the live working prototype: kfm2458sz22qchepqmhm7f.streamlit.app"""
+
+
 # Medoc Health AI - Face Authentication Attendance System
 
 
@@ -20,6 +24,25 @@ The system is built with a **Hybrid Authentication Engine** that supports both f
 * **High Performance:** Implements **Multi-threaded Video Processing** to separate UI rendering from frame ingestion, ensuring zero lag.
 * **Admin Dashboard:** secure SQLite database with CSV export for HR audits.
 * **Dockerized:** Fully containerized for "Write Once, Run Anywhere" deployment.
+
+
+graph TD
+    User[User / Employee] -->|Webcam Feed| Camera[Threaded Camera Module]
+    Camera -->|Frame Stream| Liveness[Liveness Detector \n(MediaPipe Mesh)]
+    
+    Liveness -- "If Blink Detected" --> FaceRec[Face Recognition \n(ResNet-34)]
+    Liveness -- "No Blink" --> UI[User Interface \n(Streamlit)]
+    
+    FaceRec -- "Match Found" --> DB[(SQLite Database)]
+    FaceRec -- "Unknown" --> Alert[Alert: Unknown User]
+    
+    DB -->|Logs & History| Admin[Admin Dashboard]
+    
+    subgraph "Core Engine"
+    Camera
+    Liveness
+    FaceRec
+    end
 
 
 
@@ -55,9 +78,25 @@ medoc_attendance/
 
 
 
+🚀 Future Roadmap (Production Scaling)
+--Cloud Storage: Migrate SQLite to PostgreSQL (AWS RDS) for concurrent write access across multiple hospital wings.
 
-Installation & Setup
-Option 1: Quick Start (Local)
-Clone the repository: 
-Install Dependencies: Note: Requires C++ Build Tools for Dlib (Windows): pip install -r requirements.txt
-Run the App: streamlit run app.py
+--Edge Computing: Move the dlib inference to an edge device (like NVIDIA Jetson Nano) to reduce server latency.
+
+--Security: Encrypt the embeddings.pkl file using AES-256 to comply with HIPAA (Health Data Privacy) regulations.
+
+--Multi-Camera Support - Multiple entry points monitoring
+
+--Cloud Integration - Google Drive/AWS backup and sync
+
+--Mobile App - React Native app with QR code backup
+
+--Advanced Analytics - Attendance trends, heat maps, insights
+
+--Geofencing - GPS/WiFi location verification
+
+--Voice Recognition - Multi-factor authentication (Face + Voice)
+
+--Smart Shift Management - Automatic shift recognition, break tracking
+
+--AI Anomaly Detection - ML-powered fraud detection and wellness monitoring
