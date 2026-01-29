@@ -1,5 +1,5 @@
 
-"""🔴 Live Demo prototype: [kfm2458sz22qchepqmhm7f.streamlit.app]"""
+"""🔴 Live Demo prototype: [a8xpdpndypepwkxmqzhcdd.streamlit.app]"""
 
 
 # Medoc Health AI - Face Authentication Attendance System
